@@ -10,7 +10,7 @@
 #SBATCH --time=7-00:00:00
 #SBATCH --job-name="sv"
 #SBATCH -p gcluster
-#SBATCH --array=2-190%10
+#SBATCH --array=191-193
 
 ## FULL ARRAY 2-190
 

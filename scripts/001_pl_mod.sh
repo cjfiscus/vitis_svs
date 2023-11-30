@@ -10,7 +10,7 @@
 #SBATCH --time=7-00:00:00
 #SBATCH --job-name="sv"
 #SBATCH -p gcluster
-#SBATCH --array=92-94
+#SBATCH --array=191-193
 
 ## FULL ARRAY 2-190
 
@@ -50,8 +50,8 @@ then
 
 	# quality and adapter trimming
 	java -jar "$TRIMMOMATIC" PE -threads "$THREADS" \
-	"$FILE"-READ1-Sequences.txt.gz \
-    	"$FILE"-READ2-Sequences.txt.gz \
+	"$FILE"_1.fastq.gz \
+    	"$FILE"_2.fastq.gz \
     	"$NAME"_1_trimmed_paired.fq.gz "$NAME"_1_unpaired.fq.gz \
     	"$NAME"_2_trimmed_paired.fq.gz "$NAME"_2_unpaired.fq.gz \
     	ILLUMINACLIP:"$ADAPTERSPE":2:30:10 \
