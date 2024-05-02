@@ -10,9 +10,9 @@
 #SBATCH --time=7-00:00:00
 #SBATCH --job-name="sv"
 #SBATCH -p gcluster
-#SBATCH --array=92-94
+#SBATCH --array=2-7,194-199
 
-## FULL ARRAY 2-190
+## FULL ARRAY 2-198
 
 ## software dependencies
 ### samtools 1.17
@@ -41,16 +41,17 @@ REF=/gpool/cfiscus/b40-14_v2.0/VITVarB40-14_v2.0.pseudomolecules.hap1.fasta
 TRIMMOMATIC=/gpool/cfiscus/bin/Trimmomatic-0.39/trimmomatic-0.39.jar
 ADAPTERSPE=/gpool/cfiscus/bin/Trimmomatic-0.39/adapters/TruSeq3-PE.fa
 MANTA_INSTALL_PATH=/gpool/cfiscus/bin/manta-1.6.0.centos6_x86_64
+PREFIX=$(head -n "$SLURM_ARRAY_TASK_ID" "$LST" | tail -n 1 | cut -f3)
 
 # check which step of pl to enter
-if [ $SLURM_ARRAY_TASK_ID -gt 172 ]
+if [ "$PREFIX" != "NA" ]
 then	
 	FILE=$(head -n "$SLURM_ARRAY_TASK_ID" "$LST" | tail -n 1 | cut -f3)
 	NAME=$(basename "$FILE")
 
 	# quality and adapter trimming
 	java -jar "$TRIMMOMATIC" PE -threads "$THREADS" \
-	"$FILE"-READ1-Sequences.txt.gz \
+	    "$FILE"-READ1-Sequences.txt.gz \
     	"$FILE"-READ2-Sequences.txt.gz \
     	"$NAME"_1_trimmed_paired.fq.gz "$NAME"_1_unpaired.fq.gz \
     	"$NAME"_2_trimmed_paired.fq.gz "$NAME"_2_unpaired.fq.gz \
