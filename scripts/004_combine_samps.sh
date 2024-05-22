@@ -10,7 +10,7 @@
 #SBATCH --time=1-00:00:00
 #SBATCH --job-name="comb"
 #SBATCH -p gcluster
-#SBATCH --array=2-39
+#SBATCH --array=28,40
 
 # software dependencies
 ## bcftools

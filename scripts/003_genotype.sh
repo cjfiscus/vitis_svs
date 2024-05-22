@@ -10,7 +10,7 @@
 #SBATCH --time=7-00:00:00
 #SBATCH --job-name="sv"
 #SBATCH -p gcluster
-#SBATCH --array=191-193
+#SBATCH --array=2-199
 
 ## FULL ARRAY 2-190
 
@@ -42,9 +42,10 @@ TRIMMOMATIC=/gpool/cfiscus/bin/Trimmomatic-0.39/trimmomatic-0.39.jar
 ADAPTERSPE=/gpool/cfiscus/bin/Trimmomatic-0.39/adapters/TruSeq3-PE.fa
 SMOOVE_MERGED=/gpool/cfiscus/vitis_svs/results/smoove_merged.sites.vcf.gz
 DELLY_MERGED=/gpool/cfiscus/vitis_svs/results/delly_merged.vcf
+PREFIX=$(head -n "$SLURM_ARRAY_TASK_ID" "$LST" | tail -n 1 | cut -f3)
 
 # check which step of pl to enter
-if [ $SLURM_ARRAY_TASK_ID -gt 172 ]
+if [ "$PREFIX" != "NA" ]
 then	
 	FILE=$(head -n "$SLURM_ARRAY_TASK_ID" "$LST" | tail -n 1 | cut -f3)
 	NAME=$(basename "$FILE")

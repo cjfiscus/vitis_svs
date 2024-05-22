@@ -10,10 +10,9 @@
 #SBATCH --time=7-00:00:00
 #SBATCH --job-name="merge"
 #SBATCH -p gcluster
-#SBATCH --array=1-173
+#SBATCH --array=1-182
 
 ## software dependencies
-
 # array will be 1-173 
 
 # env for smoove
